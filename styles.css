@@ -5,6 +5,83 @@ body {
     box-sizing: border-box;
 }
 
+/* Toggle Switch Styles */
+.toggle--daynight {
+    display: inline-block;
+    position: relative;
+    margin-right: 10px; /* Add some space for the label */
+}
+
+.toggle--checkbox {
+    display: none; /* Hide the actual checkbox */
+}
+
+.toggle--btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 50px; /* Adjusted width */
+    height: 25px; /* Adjusted height */
+    background-color: #ccc; /* Neutral background */
+    border-radius: 25px; /* Fully rounded */
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s ease;
+    padding: 1px; /* Space between label and switch */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.toggle--feature {
+    display: block;
+    width: 20px; /* Adjusted width */
+    height: 20px; /* Adjusted height */
+    background-color: #fff; /* White switch */
+    border-radius: 50%;
+    position: relative;
+    transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.toggle--checkbox:checked + .toggle--btn {
+    background-color: #4caf50; /* Active background color */
+}
+
+.toggle--checkbox:checked + .toggle--btn .toggle--feature {
+    transform: translateX(25px); /* Move switch to the right */
+    background-color: #fff; /* Ensure switch remains white */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+/* Add a label to hint at the function */
+.toggle--daynight::before {
+    content: "☀️";
+    position: absolute;
+    left: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #007BFF; /* Hint color */
+}
+
+.toggle--checkbox:checked + .toggle--btn::before {
+    content: "🌙";
+    position: absolute;
+    left: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #4caf50; /* Hint color */
+}
+
+/* Hint Label */
+.toggle-label {
+    display: inline-block;
+    font-size: 14px;
+    color: #333;
+    vertical-align: middle;
+    margin-left: 10px; /* Space between toggle and label */
+}
+
 .input-container {
     display: flex;
     align-items: center;
@@ -48,8 +125,18 @@ body {
     background-color: #f8f9fa;
 }
 
-.div-1-greeting p {
-    margin: 0;
+.div-1-greeting {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.div-1-greeting .gm {
+    margin-right: auto;
+}
+
+.div-1-greeting .gm-greeting {
+    margin-left: auto;
 }
 
 .div-1-location button {
@@ -124,6 +211,7 @@ body {
     display: flex;
     justify-content: center;
     padding: 20px 0;
+    overflow-x: auto; /* Enable horizontal scrolling */
 }
 
 .div-4 {
@@ -134,11 +222,17 @@ body {
 
 .div-4-card {
     flex: 0 0 auto;
-    width: 120px; /* Adjust width to fit content */
+    width: 150px; /* Default width */
     border: 1.2px solid rgb(67, 123, 226);
     border-radius: 8px;
     padding: 10px;
     transition: transform 0.3s ease;
+    text-align: center; /* Center the text and images */
+}
+
+.div-4-card p {
+    margin: 5px 0;
+    font-size: 14px; /* Adjust the font size if needed */
 }
 
 .div-4-card:hover {
@@ -147,12 +241,14 @@ body {
 
 .div-4-card img {
     width: 100%;
+    height: auto;
 }
 
+/* Updated .div-5 to use flexbox for responsiveness */
 .div-5 {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    gap: 10px; /* Margin between the items */
     margin: 20px;
     padding: 20px;
     background-color: #f8f9fa;
@@ -160,15 +256,14 @@ body {
 }
 
 .div-5 > div {
-    flex: 1 1 30%;
-    margin: 10px 0;
-    padding: 20px;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 20px;
+    flex: 1 1 calc(33.33% - 20px); /* Responsive flex basis for three items per row */
 }
 
 .div-5 > div span {
@@ -182,22 +277,118 @@ body {
     text-align: center;
 }
 
-/* Media Queries */
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.div-1.dark-mode,
+.div-2.dark-mode,
+.div-3.dark-mode,
+.div-4.dark-mode,
+.div-5 > div.dark-mode {
+    background-color: #1e1e1e;
+    border-color: #333333;
+}
+
+/* Dark mode input */
+body.dark-mode input {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Dark mode toggle switch */
+body.dark-mode .toggle--btn {
+    background-color: #666;
+}
+
+body.dark-mode .toggle--feature {
+    background-color: #222;
+}
+
+body.dark-mode .toggle--checkbox:checked + .toggle--btn {
+    background-color: #4caf50;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
+    .div-1 {
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .div-1-greeting {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .div-1-location button {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    .toggle-container {
+        margin-top: 10px;
+    }
+
     .div-4 {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: row;
+        gap: 10px;
     }
 
     .div-4-card {
-        width: 100%; /* Adjust width for mobile */
-        max-width: 200px; /* Maximum width for mobile */
+        width: calc(33.33% - 20px); /* Show three cards at a time */
+        padding: 10px;
+    }
+
+    .div-4-card img {
+        width: 50%; /* Reduce the size for mobile devices */
+        height: auto;
     }
 
     .div-5 > div {
-        flex: 1 1 100%;
+        flex: 1 1 calc(50% - 20px); /* Two items per row on smaller screens */
     }
 }
 
+@media (max-width: 480px) {
+    .div-1 {
+        flex-direction: column;
+        align-items: center;
+        padding: 5px;
+    }
 
+    .gm {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
 
+    .gm-greeting {
+        margin-bottom: 0px;
+    }
+
+    .div-1-location button {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    .toggle-container {
+        margin-top: 10px;
+    }
+
+    .div-4-card {
+        width: calc(33.33% - 10px); /* Show three cards at a time */
+        padding: 5px;
+    }
+
+    .div-4-card img {
+        width: 50%; /* Further reduce the size for very small screens */
+        height: auto;
+    }
+
+    .div-5 > div {
+        flex: 1 1 100%; /* One item per row on very small screens */
+    }
+}

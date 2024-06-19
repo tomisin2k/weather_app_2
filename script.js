@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () => {
     const locationInput = document.getElementById("locationInput");
     const locationName = document.getElementById("locationName");
@@ -6,6 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const degreeDescriptionElement = document.querySelector(".div-2-degree-description");
     const weatherImage = document.querySelector(".div-2-img");
     const forecastCardsContainer = document.getElementById("forecastCards");
+    const toggleCheckbox = document.getElementById("darkModeToggle");
+    const toggleLabel = document.getElementById("toggleLabel");
+
 
     const apiKey = '57753fc02362e55f7f474eb64ff457b8'; // Replace with your OpenWeatherMap API key
 
@@ -136,6 +140,14 @@ document.addEventListener("DOMContentLoaded", () => {
         return (b * alpha) / (a - alpha);
     };
 
+    const toggleDarkMode = () => {
+        document.body.classList.toggle('dark-mode');
+        document.querySelectorAll('.div-1, .div-2, .div-3, .div-4, .div-5 > div').forEach((element) => {
+            element.classList.toggle('dark-mode');
+        });
+        toggleLabel.textContent = document.body.classList.contains('dark-mode') ? 'Switch to light mode' : 'Switch to dark mode';
+    };
+
     searchIcon.addEventListener("click", updateLocation);
 
     locationInput.addEventListener("keypress", (event) => {
@@ -143,6 +155,8 @@ document.addEventListener("DOMContentLoaded", () => {
             updateLocation();
         }
     });
+
+    toggleCheckbox.addEventListener("change", toggleDarkMode);
 
     // Initial update on page load
     getWeather('Lagos'); // Default location is Lagos
